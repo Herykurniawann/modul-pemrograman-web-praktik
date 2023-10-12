@@ -4,3 +4,4 @@ from flask_mysql import MySQL
 
 # inisiasi object Flask
 app = Flask(__name__)
+
