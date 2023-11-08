@@ -1,30 +1,23 @@
-# import library third party
-from flask import Flask,render_template
+from flask import Flask, render_template
 from flask_mysqldb import MySQL
 
-# init main app
 app = Flask(__name__)
 
-# database config
+# MySQL configurations
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB']='flask_praktikum'
+app.config['MySQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'flaskmysql'
 
-# init mysql
 mysql = MySQL(app)
 
-# set route default
 @app.route('/')
-# function name
-def home():
-#   cursor koneksi mysql
+def index():
     cur = mysql.connection.cursor()
-#   execute query
     cur.execute("SELECT * FROM users")
-#   fetch hasil query masukkan ke variable data
     data = cur.fetchall()
-#   close koneksi mysql
     cur.close()
+    return render_template('home.html', users=data)
 
-#   render array data sebagai users
+if __name__ == '__main__':
+    app.run(debug=True)
